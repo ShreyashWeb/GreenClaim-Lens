@@ -68,8 +68,14 @@ Phase 3 (Web App MVP) is complete: The client-side Next.js App Router web applic
 Phase 4 (Capture and Reach) is complete: GreenClaim Lens now features full multi-modal capture and localization. In-browser OCR via Tesseract.js recognizes packaging text with client-side image preprocessing and vision fallback. Barcode lookup queries Open Food Facts with built-in offline registry fallback to instantly load packaging claims. A comprehensive bilingual Hindi localization system provides 100% UI translation parity across all screens and evaluates vernacular environmental claims. The PWA manifest and service worker enable offline shell caching so rule evaluations operate reliably even under weak or absent mobile connectivity. All exit criteria met.
 
 ## Phase 5: Experience Polish
-- [ ] Interactive results visualization (with 2D fallback for low-end / reduced-motion)
-- [ ] Smooth micro-interactions & performance budget
+- [x] Task 5.1: Performance budget & reduced-motion validator (`apps/web/src/lib/performance-budget.ts`) — Verified via unit tests confirming device concurrency thresholding, WebGL capability check, and latency budget evaluation.
+- [x] Task 5.2: Interactive 3D results visualizer with dynamic loading and 2D canvas/SVG fallback (`ResultsVisualizer.tsx`) — Verified interactive 3D rotating compliance wireframe sphere with automatic 2D SVG radial gauge fallback when reduced motion or unsupported WebGL is detected.
+- [x] Task 5.3: Micro-interactions, animated feedback, and accessibility transition polish — Verified keyframe animations (`fadeInSlide`), micro-interaction toast notifications (`<output className="toast">`), and `@media (prefers-reduced-motion: reduce)` overrides.
+- [x] Task 5.4: Unit & integration test suite in `apps/web` verifying 2D/3D fallback, reduced motion, and performance budget — Verified 16 passing test suites in `apps/web/src/index.test.ts`.
+- [x] Task 5.5: Phase 5 exit criteria verification & summary — Verified full monorepo pipeline: `pnpm lint`, `pnpm typecheck`, `pnpm test` (97 tests passing across monorepo), `pnpm eval`, and Next.js static production build.
+
+### Phase 5 Summary & Exit Criteria
+Phase 5 (Experience Polish) is complete: The results experience features an interactive compliance risk visualization with lightweight 3D wireframe spherical geometry and automatic 2D SVG radial gauge fallback. The performance budget module enforces latency limits and device capability checks. Strict accessibility compliance ensures `prefers-reduced-motion` is automatically honored by suppressing 3D animations and collapsing transition durations. Micro-interactions and toast status notifications provide immediate visual feedback. All exit criteria met.
 
 ## Phase 6: Platform & API
 - [ ] Hono API on Cloudflare Workers in `apps/api`

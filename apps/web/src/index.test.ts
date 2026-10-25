@@ -1,11 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import {
   TRANSLATIONS,
+  evaluatePerformanceBudget,
   generateComplaintPdf,
   getAppTitle,
   lookupProductByBarcode,
   performOcr,
   preprocessImageForOcr,
+  shouldUse3DVisualization,
   verifyClaim,
 } from './index.js';
 
@@ -146,6 +148,28 @@ describe('@greenclaim/web Application Suite', () => {
       expect(TRANSLATIONS.hi.verdictThemes.misleading.title).toBe(
         'दिशानिर्देशों के अनुरूप प्रतीत नहीं होता',
       );
+    });
+  });
+
+  describe('Performance Budget & 3D/2D Fallbacks', () => {
+    it('evaluates performance budget limits correctly', () => {
+      const passing = evaluatePerformanceBudget(45, 100);
+      expect(passing.met).toBe(true);
+      expect(passing.delta).toBe(55);
+
+      const failing = evaluatePerformanceBudget(150, 100);
+      expect(failing.met).toBe(false);
+      expect(failing.delta).toBe(-50);
+    });
+
+    it('forces 2D fallback when reduced motion is preferred', () => {
+      const shouldUse = shouldUse3DVisualization({ forceReducedMotion: true });
+      expect(shouldUse).toBe(false);
+    });
+
+    it('forces 2D fallback when WebGL is unavailable', () => {
+      const shouldUse = shouldUse3DVisualization({ forceNoWebGL: true });
+      expect(shouldUse).toBe(false);
     });
   });
 });

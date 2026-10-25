@@ -9,6 +9,7 @@ import { EvidenceList } from '../components/EvidenceList.js';
 import { Header } from '../components/Header.js';
 import { PdfModal } from '../components/PdfComplaintButton.js';
 import { RecommendationsCard } from '../components/RecommendationsCard.js';
+import { ResultsVisualizer } from '../components/ResultsVisualizer.js';
 import { VerdictCard } from '../components/VerdictCard.js';
 import { type Language, TRANSLATIONS } from '../lib/i18n.js';
 import { type VerificationResult, verifyClaim } from '../lib/verifier.js';
@@ -19,6 +20,7 @@ export default function HomePage(): React.JSX.Element {
   const [result, setResult] = useState<VerificationResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Modals state
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
@@ -26,6 +28,13 @@ export default function HomePage(): React.JSX.Element {
   const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
 
   const t = TRANSLATIONS[lang];
+
+  // Auto-dismiss toast after 3s
+  useEffect(() => {
+    if (!toastMessage) return;
+    const timer = setTimeout(() => setToastMessage(null), 3000);
+    return () => clearTimeout(timer);
+  }, [toastMessage]);
 
   // Register PWA service worker on mount
   useEffect(() => {
@@ -45,6 +54,7 @@ export default function HomePage(): React.JSX.Element {
     try {
       const res = await verifyClaim(text);
       setResult(res);
+      setToastMessage(lang === 'hi' ? 'सत्यापन पूर्ण' : 'Claim verified successfully');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred during verification');
       setResult(null);
@@ -55,11 +65,17 @@ export default function HomePage(): React.JSX.Element {
 
   const handleTextExtractedFromOcr = (extracted: string) => {
     setClaimText(extracted);
+    setToastMessage(
+      lang === 'hi' ? 'फोटो से टेक्स्ट पहचाना गया' : 'Text extracted from packaging photo',
+    );
     handleVerify(extracted);
   };
 
   const handleClaimSelectedFromBarcode = (selectedClaim: string) => {
     setClaimText(selectedClaim);
+    setToastMessage(
+      lang === 'hi' ? 'बारकोड दावा लोड किया गया' : 'Packaging claim loaded from barcode registry',
+    );
     handleVerify(selectedClaim);
   };
 
@@ -94,7 +110,10 @@ export default function HomePage(): React.JSX.Element {
       )}
 
       {result && (
-        <>
+        <div className="fade-in">
+          {/* Interactive 3D / 2D Results Visualization */}
+          <ResultsVisualizer result={result} />
+
           <VerdictCard result={result} onOpenPdfModal={() => setIsPdfModalOpen(true)} t={t} />
 
           <RecommendationsCard recommendations={result.recommendations} t={t} />
@@ -107,7 +126,7 @@ export default function HomePage(): React.JSX.Element {
             onClose={() => setIsPdfModalOpen(false)}
             t={t}
           />
-        </>
+        </div>
       )}
 
       {/* OCR Capture Modal */}
@@ -123,6 +142,14 @@ export default function HomePage(): React.JSX.Element {
         onClose={() => setIsBarcodeModalOpen(false)}
         onClaimSelected={handleClaimSelectedFromBarcode}
       />
+
+      {/* Interactive Micro-interaction Toast */}
+      {toastMessage && (
+        <output className="toast">
+          <span>🌿</span>
+          <span>{toastMessage}</span>
+        </output>
+      )}
 
       <footer
         style={{

@@ -35,5 +35,6 @@ This document records architectural, design, and implementation decisions that e
 - **Context:** Users on mobile devices and supermarket aisles need to capture packaging text via camera and barcodes quickly, often under degraded or offline connectivity conditions.
 - **Decision:** Implement Tesseract.js client-side OCR with canvas contrast pre-processing and vision model fallback. Provide barcode scanning with Open Food Facts and built-in offline registry fallback. Implement complete English/Hindi localization with full dictionary parity and PWA service worker caching for offline evaluation.
 
-
-
+## ADR-009: Interactive Risk Visualizer, 2D Fallback, and Performance Budget
+- **Context:** High-fidelity data visualizations provide clarity into environmental compliance risks, but heavy 3D bundles can degrade performance on low-end mobile hardware or violate WCAG accessibility guidelines for users with vestibular disorders.
+- **Decision:** Implement a lightweight 3D rotating compliance wireframe sphere with Three.js-style mathematics and canvas rendering. Couple it with a performance budget validator that detects device concurrency, WebGL support, and `prefers-reduced-motion` settings to automatically fall back to an accessible 2D SVG radial gauge with instant rendering and zero motion artifacts.
