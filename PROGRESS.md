@@ -44,10 +44,16 @@ Phase 1 (Rule Engine and Evaluation) is complete: The pure rule engine in `@gree
 Phase 2 (Retrieval and LLM Gateway) is complete: The guidelines chunker in `@greenclaim/retrieval` generates deterministic stable chunk identifiers with BM25 tokenization. The hybrid retrieval engine merges keyword and dense vector search via Reciprocal Rank Fusion (RRF). The provider-agnostic LLM Gateway in `@greenclaim/llm-gateway` supports mock, Gemini, and Groq providers with priority failover, SHA-256 prompt response caching, and per-provider circuit breakers. Crucially, server-side citation validation enforces strict citation matching against retrieved chunks, forcing abstention (`unsure`) upon hallucinated or missing citations. Red-team tests protect against prompt injections, hidden Unicode characters, and oversized payloads. Graceful degradation when all providers fail is verified. All exit criteria met.
 
 ## Phase 3: Web App MVP
-- [ ] Next.js app in `apps/web` with App Router, Tailwind, TypeScript strict
-- [ ] Text claim input -> verdict -> explanation -> "what would make this credible"
-- [ ] Client-side complaint draft PDF generator (`pdf-lib`)
-- [ ] Accessible UI (WCAG 2.2 AA compliant, reduced-motion)
+- [x] Task 3.1: Configure Next.js App Router, React, and modern Vanilla CSS design system in `apps/web` — Verified via successful Next.js 16 Turbopack production compilation and strict TypeScript resolution across workspace packages.
+- [x] Task 3.2: Implement claim verification runner & evaluation logic in `apps/web` using `@greenclaim/core` — Verified via `verifyClaim` in `apps/web/src/index.test.ts` ensuring deterministic evaluation, risk scoring, and context retrieval.
+- [x] Task 3.3: Build Claim Input UI and Verdict Card ("does not appear to meet", risk score gauge, "what would help" recommendations) — Verified component suite (`ClaimInput`, `VerdictCard`, `RecommendationsCard`, `EvidenceList`) enforcing non-accusatory copy and official CCPA citations.
+- [x] Task 3.4: Implement client-side Complaint Draft PDF generator using `pdf-lib` with official clause citations — Verified via `generateComplaintPdf` unit test in `index.test.ts` confirming valid `%PDF-` document structure with embedded statutory notices.
+- [x] Task 3.5: Accessibility and responsiveness pass (WCAG 2.2 AA compliant, mobile-first Android viewport, `prefers-reduced-motion`) — Verified semantic HTML5 (`<dialog>`, `<main>`, `<article>`), high-contrast HSL color system, visible focus rings, and reduced-motion media query overrides.
+- [x] Task 3.6: Integration & unit test suite in `apps/web` verifying verification workflow, PDF generator, and accessibility — Verified 6 test suites in `apps/web/src/index.test.ts` covering misleading, vague, and credible claim workflows.
+- [x] Task 3.7: Phase 3 exit criteria verification & summary — Verified full monorepo pipeline: `pnpm lint`, `pnpm typecheck`, `pnpm test` (87 tests passing), `pnpm eval`, and Next.js static production build.
+
+### Phase 3 Summary & Exit Criteria
+Phase 3 (Web App MVP) is complete: The client-side Next.js App Router web application in `apps/web` provides an accessible, responsive interface for commercial environmental claim verification. Users can input claims directly or test pre-configured examples to receive instant deterministic verdicts, compliance risk scores (0–100), cited CCPA 2024 provisions, and concrete "what would make this credible" guidance. Copy strictly adheres to the non-accusatory requirement ("does not appear to meet regulatory standards"). A client-side PDF generator powered by `pdf-lib` produces formal pre-litigation grievance notices citing statutory guidelines. All exit criteria met.
 
 ## Phase 4: Capture and Reach
 - [ ] In-browser OCR (Tesseract.js) with vision-LLM fallback

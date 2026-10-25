@@ -27,3 +27,8 @@ This document records architectural, design, and implementation decisions that e
 - **Context:** Free-tier providers (Gemini, Groq) may encounter rate limits or temporary downtime.
 - **Decision:** Implement an in-memory SHA-256 prompt response cache, consecutive failure tracking with circuit breakers, and an ordered priority failover. If all providers fail, the gateway gracefully returns an `unsure` judgment without throwing exceptions.
 
+## ADR-007: Client-Side Grievance Notice Generation & Web UI Architecture
+- **Context:** Consumers encountering potentially misleading environmental claims need accessible ways to document and petition brands without requiring server-side rendering or backend PDF printing pipelines.
+- **Decision:** Use `pdf-lib` entirely in the client browser to generate formal PDF grievance notices citing CCPA 2024 provisions. Style the Next.js App Router application with modern, responsive Vanilla CSS using custom HSL design tokens, glassmorphism, semantic HTML5, and strict WCAG 2.2 AA accessibility (including `prefers-reduced-motion` support).
+
+

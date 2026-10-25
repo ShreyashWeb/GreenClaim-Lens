@@ -11,6 +11,15 @@
   },
   "dependencies": {
     "@greenclaim/core": "workspace:*",
-    "@greenclaim/sdk": "workspace:*"
+    "@greenclaim/retrieval": "workspace:*",
+    "@greenclaim/sdk": "workspace:*",
+    "next": "^16.4.3",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0"
   }
 }
