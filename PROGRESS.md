@@ -78,10 +78,11 @@ Phase 4 (Capture and Reach) is complete: GreenClaim Lens now features full multi
 Phase 5 (Experience Polish) is complete: The results experience features an interactive compliance risk visualization with lightweight 3D wireframe spherical geometry and automatic 2D SVG radial gauge fallback. The performance budget module enforces latency limits and device capability checks. Strict accessibility compliance ensures `prefers-reduced-motion` is automatically honored by suppressing 3D animations and collapsing transition durations. Micro-interactions and toast status notifications provide immediate visual feedback. All exit criteria met.
 
 ## Phase 6: Platform & API
-- [ ] Hono API on Cloudflare Workers in `apps/api`
-- [ ] OpenAPI 3.1 specification & typed SDK in `packages/sdk`
-- [ ] API key rate limiting & Turnstile protection
-- [ ] Browser extension prototype (MV3)
+- [x] Task 6.1: Hono Edge API routes in `apps/api` (`/v1/health`, `/v1/verify-claim`, `/v1/rules`, `/v1/openapi.json`, Swagger/Scalar docs) — Verified via 12 integration tests in `apps/api/src/index.test.ts` testing endpoints, OpenAPI 3.1 specification, and claim verification.
+- [x] Task 6.2: API key authentication, in-memory rate limiting, and Turnstile verification middleware in `apps/api` — Verified via integration tests confirming sliding window throttling (429), header generation, and API key validation.
+- [ ] Task 6.3: Typed SDK in `packages/sdk` with `verifyClaim`, `listRules`, `checkHealth`, and comprehensive unit tests
+- [ ] Task 6.4: Manifest V3 Browser Extension prototype in `apps/extension` with content script highlighting green claims and interactive popup
+- [ ] Task 6.5: Phase 6 exit criteria verification & summary (all tests passing, SDK typed, API docs live, extension flags claims on sample shopping page)
 
 ## Phase 7: Launch Hardening
 - [ ] Security audit & `SECURITY.md`

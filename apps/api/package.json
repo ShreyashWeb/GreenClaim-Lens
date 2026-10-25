@@ -12,6 +12,8 @@
   "dependencies": {
     "@greenclaim/core": "workspace:*",
     "@greenclaim/llm-gateway": "workspace:*",
-    "@greenclaim/retrieval": "workspace:*"
+    "@greenclaim/retrieval": "workspace:*",
+    "hono": "^4.13.13",
+    "zod": "^4.6.7"
   }
 }
