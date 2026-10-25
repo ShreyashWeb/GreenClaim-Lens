@@ -14,3 +14,4 @@ This document tracks all legal text, clause numbers, official URLs, and statisti
 | NH-006 | `data/rules/GCL-006.json` | Clause & URL for eco-labels | CCPA 2024 Guidelines and Ecomark Rules 2024 clauses on eco-labels and certification authenticity | Pending |
 | NH-007 | `data/rules/GCL-007.json` | Clause & URL for biodegradability | CCPA 2024 Guidelines and Plastic Waste Management Rules on biodegradable/compostable claims | Pending |
 | NH-008 | `data/rules/GCL-008.json` | Clause & URL for Hindi terminology | Official Hindi version / terminology in gazette notification for greenwashing guidelines | Pending |
+| NH-009 | `data/golden/golden_v0.json` | Expected citation clause mapping & source URLs | Official gazette clause references and verified real-world source URLs for golden dataset v0 | Pending |
