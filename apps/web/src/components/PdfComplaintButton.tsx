@@ -2,6 +2,7 @@
 
 import type React from 'react';
 import { useState } from 'react';
+import type { Translations } from '../lib/i18n.js';
 import { generateComplaintPdf } from '../lib/pdf-generator.js';
 import type { VerificationResult } from '../lib/verifier.js';
 
@@ -9,9 +10,10 @@ interface PdfModalProps {
   result: VerificationResult;
   isOpen: boolean;
   onClose: () => void;
+  t?: Translations;
 }
 
-export function PdfModal({ result, isOpen, onClose }: PdfModalProps): React.JSX.Element {
+export function PdfModal({ result, isOpen, onClose, t }: PdfModalProps): React.JSX.Element {
   const [productName, setProductName] = useState('');
   const [brandName, setBrandName] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -44,6 +46,15 @@ export function PdfModal({ result, isOpen, onClose }: PdfModalProps): React.JSX.
       setIsGenerating(false);
     }
   };
+
+  const title = t?.modalTitle ?? 'Export Formal Grievance Notice';
+  const subtitle =
+    t?.modalSubtitle ??
+    'Generate a pre-formatted inquiry letter citing CCPA 2024 provisions and identifying claim compliance discrepancies for corporate or statutory inquiry.';
+  const brandLabel = t?.brandLabel ?? 'Brand / Manufacturer Name (Optional)';
+  const productLabel = t?.productLabel ?? 'Product / Service Name (Optional)';
+  const cancelText = t?.cancelButton ?? 'Cancel';
+  const downloadText = t?.downloadPdfButton ?? 'Download PDF';
 
   return (
     <dialog
@@ -86,11 +97,10 @@ export function PdfModal({ result, isOpen, onClose }: PdfModalProps): React.JSX.
             marginBottom: '0.5rem',
           }}
         >
-          Export Formal Grievance Notice
+          {title}
         </h3>
         <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem' }}>
-          Generate a pre-formatted inquiry letter citing CCPA 2024 provisions and identifying claim
-          compliance discrepancies for corporate or statutory inquiry.
+          {subtitle}
         </p>
 
         <div style={{ marginBottom: '1rem' }}>
@@ -104,7 +114,7 @@ export function PdfModal({ result, isOpen, onClose }: PdfModalProps): React.JSX.
               marginBottom: '0.35rem',
             }}
           >
-            Brand / Manufacturer Name (Optional)
+            {brandLabel}
           </label>
           <input
             id="brand-name-input"
@@ -135,7 +145,7 @@ export function PdfModal({ result, isOpen, onClose }: PdfModalProps): React.JSX.
               marginBottom: '0.35rem',
             }}
           >
-            Product / Service Name (Optional)
+            {productLabel}
           </label>
           <input
             id="product-name-input"
@@ -162,7 +172,7 @@ export function PdfModal({ result, isOpen, onClose }: PdfModalProps): React.JSX.
             onClick={onClose}
             disabled={isGenerating}
           >
-            Cancel
+            {cancelText}
           </button>
           <button
             type="button"
@@ -171,7 +181,7 @@ export function PdfModal({ result, isOpen, onClose }: PdfModalProps): React.JSX.
             onClick={handleDownload}
             disabled={isGenerating}
           >
-            {isGenerating ? 'Generating PDF...' : 'Download PDF'}
+            {isGenerating ? 'Generating PDF...' : downloadText}
           </button>
         </div>
       </div>

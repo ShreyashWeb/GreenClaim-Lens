@@ -1,22 +1,33 @@
 'use client';
 
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { Translations } from '../lib/i18n.js';
 
 interface ClaimInputProps {
   onVerify: (claimText: string) => void;
   isLoading: boolean;
+  t: Translations;
+  onOpenCapture: () => void;
+  onOpenBarcode: () => void;
+  claimValue?: string;
 }
 
-const EXAMPLE_CLAIMS = [
-  '100% eco-friendly packaging with zero waste',
-  'Carbon neutral by 2030 with renewable energy transition',
-  'Contains 30% recycled ocean plastic certified under ISO 14021',
-  'प्राकृतिक और पर्यावरण-अनुकूल सामग्री',
-];
+export function ClaimInput({
+  onVerify,
+  isLoading,
+  t,
+  onOpenCapture,
+  onOpenBarcode,
+  claimValue,
+}: ClaimInputProps): React.JSX.Element {
+  const [claim, setClaim] = useState(claimValue ?? '');
 
-export function ClaimInput({ onVerify, isLoading }: ClaimInputProps): React.JSX.Element {
-  const [claim, setClaim] = useState('');
+  useEffect(() => {
+    if (claimValue !== undefined) {
+      setClaim(claimValue);
+    }
+  }, [claimValue]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,30 +47,62 @@ export function ClaimInput({ onVerify, isLoading }: ClaimInputProps): React.JSX.
       className="glass-panel"
       style={{ padding: '1.75rem', marginBottom: '2rem' }}
     >
-      <h2
-        id="verify-heading"
+      <div
         style={{
-          fontSize: '1.15rem',
-          fontWeight: 600,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          flexWrap: 'wrap',
+          gap: '0.75rem',
           marginBottom: '0.75rem',
-          color: 'var(--text-main)',
         }}
       >
-        Verify an Environmental Claim
-      </h2>
-      <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
-        Paste packaging copy, commercial tagline, or marketing statements to verify compliance with
-        CCPA Greenwashing Guidelines 2024.
-      </p>
+        <div>
+          <h2
+            id="verify-heading"
+            style={{
+              fontSize: '1.15rem',
+              fontWeight: 600,
+              color: 'var(--text-main)',
+              marginBottom: '0.25rem',
+            }}
+          >
+            {t.verifyTitle}
+          </h2>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>{t.verifySubtitle}</p>
+        </div>
+
+        {/* Capture & Barcode action buttons */}
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button
+            type="button"
+            id="open-capture-button"
+            className="btn btn-secondary"
+            onClick={onOpenCapture}
+            style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}
+          >
+            {t.photoButton}
+          </button>
+          <button
+            type="button"
+            id="open-barcode-button"
+            className="btn btn-secondary"
+            onClick={onOpenBarcode}
+            style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem' }}
+          >
+            {t.barcodeButton}
+          </button>
+        </div>
+      </div>
 
       <form onSubmit={handleSubmit}>
-        <div style={{ position: 'relative', marginBottom: '1rem' }}>
+        <div style={{ position: 'relative', marginBottom: '1rem', marginTop: '0.75rem' }}>
           <textarea
             id="claim-text-input"
-            aria-label="Environmental Claim Text"
+            aria-label={t.verifyTitle}
             value={claim}
             onChange={(e) => setClaim(e.target.value)}
-            placeholder="e.g. 100% eco-friendly packaging, completely biodegradable in nature..."
+            placeholder={t.claimPlaceholder}
             rows={3}
             maxLength={4000}
             style={{
@@ -104,7 +147,7 @@ export function ClaimInput({ onVerify, isLoading }: ClaimInputProps): React.JSX.
             className="btn btn-primary"
             disabled={!claim.trim() || isLoading}
           >
-            {isLoading ? 'Analyzing Claim...' : 'Verify Claim'}
+            {isLoading ? t.analyzingButton : t.verifyButton}
           </button>
 
           {claim && (
@@ -115,7 +158,7 @@ export function ClaimInput({ onVerify, isLoading }: ClaimInputProps): React.JSX.
               disabled={isLoading}
               style={{ fontSize: '0.85rem', padding: '0.5rem 1rem' }}
             >
-              Clear Input
+              {t.clearButton}
             </button>
           )}
         </div>
@@ -132,10 +175,10 @@ export function ClaimInput({ onVerify, isLoading }: ClaimInputProps): React.JSX.
             letterSpacing: '0.05em',
           }}
         >
-          Or try a sample claim:
+          {t.sampleClaimsTitle}
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-          {EXAMPLE_CLAIMS.map((example) => (
+          {t.sampleClaims.map((example) => (
             <button
               key={example}
               type="button"

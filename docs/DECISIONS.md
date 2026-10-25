@@ -31,4 +31,9 @@ This document records architectural, design, and implementation decisions that e
 - **Context:** Consumers encountering potentially misleading environmental claims need accessible ways to document and petition brands without requiring server-side rendering or backend PDF printing pipelines.
 - **Decision:** Use `pdf-lib` entirely in the client browser to generate formal PDF grievance notices citing CCPA 2024 provisions. Style the Next.js App Router application with modern, responsive Vanilla CSS using custom HSL design tokens, glassmorphism, semantic HTML5, and strict WCAG 2.2 AA accessibility (including `prefers-reduced-motion` support).
 
+## ADR-008: Multi-Modal Capture, Offline Product Registry, and Bilingual Parity
+- **Context:** Users on mobile devices and supermarket aisles need to capture packaging text via camera and barcodes quickly, often under degraded or offline connectivity conditions.
+- **Decision:** Implement Tesseract.js client-side OCR with canvas contrast pre-processing and vision model fallback. Provide barcode scanning with Open Food Facts and built-in offline registry fallback. Implement complete English/Hindi localization with full dictionary parity and PWA service worker caching for offline evaluation.
+
+
 

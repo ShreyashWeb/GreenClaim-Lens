@@ -1,58 +1,61 @@
 'use client';
 
 import type React from 'react';
+import type { Translations } from '../lib/i18n.js';
 import type { VerificationResult } from '../lib/verifier.js';
 
 interface VerdictCardProps {
   result: VerificationResult;
   onOpenPdfModal: () => void;
+  t: Translations;
 }
 
-export function VerdictCard({ result, onOpenPdfModal }: VerdictCardProps): React.JSX.Element {
+export function VerdictCard({ result, onOpenPdfModal, t }: VerdictCardProps): React.JSX.Element {
   const { verdict, riskScore, explanation, citations } = result.report;
 
   const getVerdictTheme = () => {
     switch (verdict) {
       case 'CREDIBLE':
         return {
-          title: 'Credible Claim',
+          title: t.verdictThemes.credible.title,
           color: 'var(--verdict-credible)',
           bgColor: 'var(--verdict-credible-bg)',
           borderColor: 'var(--verdict-credible-border)',
           icon: '✓',
-          badgeText: 'Meets Substantiation Criteria',
+          badgeText: t.verdictThemes.credible.badge,
         };
       case 'VAGUE':
         return {
-          title: 'Vague or Unsubstantiated',
+          title: t.verdictThemes.vague.title,
           color: 'var(--verdict-vague)',
           bgColor: 'var(--verdict-vague-bg)',
           borderColor: 'var(--verdict-vague-border)',
           icon: '⚠',
-          badgeText: 'Broad / Unqualified Claim',
+          badgeText: t.verdictThemes.vague.badge,
         };
       case 'LIKELY_MISLEADING':
         return {
-          title: 'Does Not Appear to Meet Standards',
+          title: t.verdictThemes.misleading.title,
           color: 'var(--verdict-misleading)',
           bgColor: 'var(--verdict-misleading-bg)',
           borderColor: 'var(--verdict-misleading-border)',
           icon: '✕',
-          badgeText: 'Potential Greenwashing Flag',
+          badgeText: t.verdictThemes.misleading.badge,
         };
       default:
         return {
-          title: 'Insufficient Evidence to Verify',
+          title: t.verdictThemes.insufficient.title,
           color: 'var(--verdict-insufficient)',
           bgColor: 'var(--verdict-insufficient-bg)',
           borderColor: 'var(--verdict-insufficient-border)',
           icon: '?',
-          badgeText: 'Unverified / Incomplete Context',
+          badgeText: t.verdictThemes.insufficient.badge,
         };
     }
   };
 
   const theme = getVerdictTheme();
+  const riskLabel = t.riskLevels[riskScore.level];
 
   return (
     <article
@@ -131,7 +134,7 @@ export function VerdictCard({ result, onOpenPdfModal }: VerdictCardProps): React
               letterSpacing: '0.05em',
             }}
           >
-            Risk Index
+            {t.riskIndex}
           </span>
           <span
             id="risk-score-value"
@@ -140,7 +143,7 @@ export function VerdictCard({ result, onOpenPdfModal }: VerdictCardProps): React
             {riskScore.score}
           </span>
           <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-            {riskScore.level.toUpperCase()}
+            {riskLabel}
           </span>
         </div>
       </div>
@@ -171,7 +174,7 @@ export function VerdictCard({ result, onOpenPdfModal }: VerdictCardProps): React
             marginBottom: '0.5rem',
           }}
         >
-          Assessment Summary
+          {t.assessmentTitle}
         </h3>
         <p
           id="verdict-explanation"
@@ -193,7 +196,7 @@ export function VerdictCard({ result, onOpenPdfModal }: VerdictCardProps): React
               marginBottom: '0.6rem',
             }}
           >
-            Governing Regulatory Provisions
+            {t.provisionsTitle}
           </h3>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
             {citations.map((citation) => (
@@ -235,7 +238,7 @@ export function VerdictCard({ result, onOpenPdfModal }: VerdictCardProps): React
           onClick={onOpenPdfModal}
           style={{ fontSize: '0.875rem' }}
         >
-          📄 Export Grievance Notice (PDF)
+          {t.exportNoticeButton}
         </button>
       </div>
     </article>

@@ -56,10 +56,16 @@ Phase 2 (Retrieval and LLM Gateway) is complete: The guidelines chunker in `@gre
 Phase 3 (Web App MVP) is complete: The client-side Next.js App Router web application in `apps/web` provides an accessible, responsive interface for commercial environmental claim verification. Users can input claims directly or test pre-configured examples to receive instant deterministic verdicts, compliance risk scores (0–100), cited CCPA 2024 provisions, and concrete "what would make this credible" guidance. Copy strictly adheres to the non-accusatory requirement ("does not appear to meet regulatory standards"). A client-side PDF generator powered by `pdf-lib` produces formal pre-litigation grievance notices citing statutory guidelines. All exit criteria met.
 
 ## Phase 4: Capture and Reach
-- [ ] In-browser OCR (Tesseract.js) with vision-LLM fallback
-- [ ] Barcode scanning with public product lookup
-- [ ] Hindi localization (en/hi toggle with full parity)
-- [ ] PWA & offline shell
+- [x] Task 4.1: In-browser OCR engine (`apps/web/src/lib/ocr.ts`) with image preprocessing and vision fallback hook — Verified via unit test in `index.test.ts` testing canvas contrast enhancement and automatic vision model fallback for low-confidence scans.
+- [x] Task 4.2: Barcode scanning & public product lookup service (`apps/web/src/lib/barcode.ts`) with Open Food Facts and offline fallback — Verified via 3 unit tests covering registered EAN barcodes, unregistered codes, and graceful offline catalog resolution.
+- [x] Task 4.3: Bilingual Hindi localization (`apps/web/src/lib/i18n.ts`) with full UI parity and English/Hindi toggle — Verified via dictionary key parity test in `index.test.ts` and Hindi GCL-008 environmental claim evaluation.
+- [x] Task 4.4: Capture UI components (`CaptureModal.tsx`, `BarcodeModal.tsx`, language toggle) — Verified responsive modal dialogs supporting camera viewfinder (`<video muted><track kind="captions" /></video>`), drag-and-drop packaging photo uploads, and barcode searches.
+- [x] Task 4.5: PWA manifest (`manifest.webmanifest`), offline service worker (`sw.js`), and offline verification shell — Verified PWA manifest configuration, stale-while-revalidate service worker caching, and client-side offline execution capability.
+- [x] Task 4.6: Unit & integration test suite in `apps/web` covering OCR, barcode lookup, Hindi parity, and offline behavior — Verified 13 passing unit and integration tests in `apps/web/src/index.test.ts`.
+- [x] Task 4.7: Phase 4 exit criteria verification & summary — Verified full monorepo pipeline: `pnpm lint`, `pnpm typecheck`, `pnpm test` (94 tests passing), `pnpm eval`, and Next.js static production build.
+
+### Phase 4 Summary & Exit Criteria
+Phase 4 (Capture and Reach) is complete: GreenClaim Lens now features full multi-modal capture and localization. In-browser OCR via Tesseract.js recognizes packaging text with client-side image preprocessing and vision fallback. Barcode lookup queries Open Food Facts with built-in offline registry fallback to instantly load packaging claims. A comprehensive bilingual Hindi localization system provides 100% UI translation parity across all screens and evaluates vernacular environmental claims. The PWA manifest and service worker enable offline shell caching so rule evaluations operate reliably even under weak or absent mobile connectivity. All exit criteria met.
 
 ## Phase 5: Experience Polish
 - [ ] Interactive results visualization (with 2D fallback for low-end / reduced-motion)

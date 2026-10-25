@@ -1,15 +1,23 @@
 import type React from 'react';
+import type { Translations } from '../lib/i18n.js';
 
 interface RecommendationsCardProps {
   recommendations: string[];
+  t?: Translations;
 }
 
 export function RecommendationsCard({
   recommendations,
+  t,
 }: RecommendationsCardProps): React.JSX.Element {
   if (recommendations.length === 0) {
     return <></>;
   }
+
+  const title = t?.whatWouldHelpTitle ?? 'What Would Make This Credible?';
+  const subtitle =
+    t?.whatWouldHelpSubtitle ??
+    'Under CCPA 2024 guidelines, environmental assertions can achieve compliance through specific disclosures and verifiable substantiation:';
 
   return (
     <section
@@ -23,12 +31,11 @@ export function RecommendationsCard({
           id="recommendations-heading"
           style={{ fontSize: '1.15rem', fontWeight: 600, color: 'var(--text-main)' }}
         >
-          What Would Make This Credible?
+          {title}
         </h3>
       </div>
       <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
-        Under CCPA 2024 guidelines, environmental assertions can achieve compliance through specific
-        disclosures and verifiable substantiation:
+        {subtitle}
       </p>
 
       <ul
