@@ -80,7 +80,7 @@ Phase 5 (Experience Polish) is complete: The results experience features an inte
 ## Phase 6: Platform & API
 - [x] Task 6.1: Hono Edge API routes in `apps/api` (`/v1/health`, `/v1/verify-claim`, `/v1/rules`, `/v1/openapi.json`, Swagger/Scalar docs) — Verified via 12 integration tests in `apps/api/src/index.test.ts` testing endpoints, OpenAPI 3.1 specification, and claim verification.
 - [x] Task 6.2: API key authentication, in-memory rate limiting, and Turnstile verification middleware in `apps/api` — Verified via integration tests confirming sliding window throttling (429), header generation, and API key validation.
-- [ ] Task 6.3: Typed SDK in `packages/sdk` with `verifyClaim`, `listRules`, `checkHealth`, and comprehensive unit tests
+- [x] Task 6.3: Typed SDK in `packages/sdk` with `verifyClaim`, `listRules`, `checkHealth`, and comprehensive unit tests — Verified via 8 unit tests in `packages/sdk/src/index.test.ts` testing client instantiation, health checks, rules listing, typed claim verification, custom fetch injection, and error taxonomy (`RateLimitError`, `AuthenticationError`, `ValidationError`).
 - [ ] Task 6.4: Manifest V3 Browser Extension prototype in `apps/extension` with content script highlighting green claims and interactive popup
 - [ ] Task 6.5: Phase 6 exit criteria verification & summary (all tests passing, SDK typed, API docs live, extension flags claims on sample shopping page)
 
