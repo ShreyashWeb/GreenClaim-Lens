@@ -21,7 +21,7 @@ Phase 0 Foundations are complete: The Turborepo monorepo with pnpm workspaces is
 - [x] Task 1.1: Core Types & Schemas in `packages/core` (Claim, Rule, RuleHit, Verdict, RiskScore) — Verified via 6 Zod schema test suites and full typecheck across workspace.
 - [x] Task 1.2: Deterministic Rule Runner in `packages/core` (lexicon, regex, qualifiers, evidence spans) — Verified via 5 rule runner unit tests covering flags, passes, n/a, multi-rule, and unicode normalization.
 - [x] Task 1.3: Verdict Aggregation & Risk Scoring in `packages/core` (4-state verdicts, risk score 0-100) — Verified via 6 verdict unit tests enforcing 'does not appear to meet' wording, cite-or-abstain, and bounded risk scoring.
-- [ ] Task 1.4: Rule definitions in `data/rules/` with tests & source clauses (logging unverified clauses to `NEEDS_HUMAN.md`)
+- [x] Task 1.4: Rule definitions in `data/rules/` with tests & source clauses (logging unverified clauses to `NEEDS_HUMAN.md`) — Verified via 33 test cases across 8 rules in `packages/core/src/default-rules.test.ts` and logged 8 unverified clause entries in `NEEDS_HUMAN.md`.
 - [ ] Task 1.5: Golden Dataset v0 in `data/golden/` (50+ labelled items across categories and verdicts)
 - [ ] Task 1.6: Evaluation harness in `packages/eval` (Macro-F1, per-class metrics, false-accusation rate)
 - [ ] Task 1.7: `pnpm eval` benchmark reporting baseline rules-only metrics

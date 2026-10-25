@@ -6,6 +6,7 @@
 export * from './schemas.js';
 export * from './rule-runner.js';
 export * from './verdict.js';
+export * from './default-rules.js';
 
 export const CORE_VERSION = '0.1.0';
 

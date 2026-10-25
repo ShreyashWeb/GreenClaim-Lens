@@ -1,0 +1,56 @@
+{
+  "id": "GCL-004",
+  "title": "Future aspirational claim without clear roadmap or interim targets",
+  "status": "draft",
+  "severity": "medium",
+  "source": {
+    "document": "CCPA Guidelines for Prevention and Regulation of Greenwashing, 2024",
+    "clause": "<TODO: verify against official text>",
+    "url": "<TODO: verify against official text>",
+    "retrieved_on": "2024-10-25"
+  },
+  "detect": {
+    "type": "lexicon",
+    "terms": [
+      "net zero by 2030",
+      "net zero by 2040",
+      "carbon neutral by 2030",
+      "plastic free by 2025",
+      "committed to zero emissions"
+    ],
+    "languages": ["en"],
+    "qualifier_terms": [
+      "interim milestone",
+      "published roadmap",
+      "transition plan",
+      "interim target of"
+    ],
+    "substantiation_patterns": [
+      "transition report",
+      "sbti validated",
+      "sbti target",
+      "annual progress report",
+      "https://"
+    ]
+  },
+  "requires": ["qualifier", "substantiation_reference"],
+  "outcome_if_missing": "flag",
+  "explain": {
+    "en": "Aspirational environmental targets must be supported by a concrete transition plan and verifiable interim milestones."
+  },
+  "remediation": {
+    "en": "Include published interim targets, verification body validation (e.g. SBTi), and public roadmap link."
+  },
+  "tests": [
+    {
+      "input": "We will achieve net zero by 2030 across all operations",
+      "expect": "flag",
+      "notes": "Future target without interim roadmap"
+    },
+    {
+      "input": "Committed to net zero by 2030 with published roadmap and interim target of 50% cut by 2026 (SBTi validated)",
+      "expect": "pass",
+      "notes": "Verified transition plan with interim target"
+    }
+  ]
+}

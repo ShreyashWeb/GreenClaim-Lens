@@ -1,0 +1,54 @@
+{
+  "id": "GCL-002",
+  "title": "Absolute environmental claim without complete lifecycle substantiation",
+  "status": "draft",
+  "severity": "high",
+  "source": {
+    "document": "CCPA Guidelines for Prevention and Regulation of Greenwashing, 2024",
+    "clause": "<TODO: verify against official text>",
+    "url": "<TODO: verify against official text>",
+    "retrieved_on": "2024-10-25"
+  },
+  "detect": {
+    "type": "lexicon",
+    "terms": [
+      "100% natural",
+      "100% green",
+      "100% eco",
+      "zero emission",
+      "zero carbon",
+      "zero impact",
+      "completely natural",
+      "purely organic"
+    ],
+    "languages": ["en"],
+    "qualifier_terms": ["scope 1 and 2 only", "packaging only", "certified organic under npop"],
+    "substantiation_patterns": [
+      "lca report",
+      "life cycle assessment",
+      "iso 14040",
+      "third-party audit",
+      "certificate"
+    ]
+  },
+  "requires": ["qualifier", "substantiation_reference"],
+  "outcome_if_missing": "flag",
+  "explain": {
+    "en": "Absolute claims like '100% natural' or 'zero emission' require proof across the entire lifecycle or clear qualification of scope."
+  },
+  "remediation": {
+    "en": "Avoid absolute terms like '100%' or 'zero' unless supported by a published Life Cycle Assessment (LCA) or restricted to a specific qualified component."
+  },
+  "tests": [
+    {
+      "input": "Guaranteed 100% natural fabric without chemicals",
+      "expect": "flag",
+      "notes": "Absolute assertion without scope qualification"
+    },
+    {
+      "input": "Certified organic under NPOP (certificate: NPOP/NAB/001) for packaging only",
+      "expect": "pass",
+      "notes": "Qualified scope and accredited certificate"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "GCL-008",
+  "title": "Unqualified Hindi broad environmental terms",
+  "status": "draft",
+  "severity": "medium",
+  "source": {
+    "document": "CCPA Guidelines for Prevention and Regulation of Greenwashing, 2024",
+    "clause": "<TODO: verify against official text>",
+    "url": "<TODO: verify against official text>",
+    "retrieved_on": "2024-10-25"
+  },
+  "detect": {
+    "type": "lexicon",
+    "terms": ["पर्यावरण अनुकूल", "इको-फ्रेंडली", "इको फ्रेंडली", "प्राकृतिक रूप से सुरक्षित", "प्रकृति के अनुकूल"],
+    "languages": ["hi"],
+    "qualifier_terms": ["पुनर्चक्रित", "प्रमाणित", "बायोडिग्रेडेबल"],
+    "substantiation_patterns": ["प्रमाणपत्र", "मानक", "iso", "bis", "certificate"]
+  },
+  "requires": ["qualifier", "substantiation_reference"],
+  "outcome_if_missing": "flag",
+  "explain": {
+    "en": "Hindi environmental terms such as 'पर्यावरण अनुकूल' require qualifying scope and verifiable substantiation.",
+    "hi": "पर्यावरण अनुकूल जैसे सामान्य दावों के लिए विशिष्ट विवरण और सत्यापन प्रमाण आवश्यक हैं।"
+  },
+  "remediation": {
+    "en": "Provide specific percentage and verification certificate reference.",
+    "hi": "विशिष्ट प्रतिशत बताएं और सत्यापन प्रमाणपत्र संख्या संलग्न करें।"
+  },
+  "tests": [
+    {
+      "input": "100% पर्यावरण अनुकूल पैकेजिंग",
+      "expect": "flag",
+      "notes": "Unqualified Hindi broad claim"
+    },
+    {
+      "input": "40% पुनर्चक्रित सामग्री से निर्मित पर्यावरण अनुकूल बैग (प्रमाणपत्र: ISO-14021)",
+      "expect": "pass",
+      "notes": "Qualified with recycled percentage and standard"
+    }
+  ]
+}

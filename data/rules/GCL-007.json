@@ -1,0 +1,50 @@
+{
+  "id": "GCL-007",
+  "title": "Unqualified biodegradability or compostability claim",
+  "status": "draft",
+  "severity": "medium",
+  "source": {
+    "document": "CCPA Guidelines for Prevention and Regulation of Greenwashing, 2024",
+    "clause": "<TODO: verify against official text>",
+    "url": "<TODO: verify against official text>",
+    "retrieved_on": "2024-10-25"
+  },
+  "detect": {
+    "type": "lexicon",
+    "terms": ["biodegradable", "compostable", "degradable plastic", "oxodegradable"],
+    "languages": ["en"],
+    "qualifier_terms": [
+      "compostable in industrial facilities within 180 days",
+      "biodegradable in soil within 12 months",
+      "home compostable within 90 days",
+      "as per is/iso 17088"
+    ],
+    "substantiation_patterns": [
+      "is 17088",
+      "iso 17088",
+      "cpcb certificate",
+      "cpcb registration",
+      "lab test report"
+    ]
+  },
+  "requires": ["qualifier", "substantiation_reference"],
+  "outcome_if_missing": "flag",
+  "explain": {
+    "en": "Biodegradability and compostability claims must specify the required disposal environment, timeframe, and accredited test standard."
+  },
+  "remediation": {
+    "en": "Specify testing standard (e.g. IS/ISO 17088), degradation timeframe, and CPCB registration number."
+  },
+  "tests": [
+    {
+      "input": "100% biodegradable carry bag",
+      "expect": "flag",
+      "notes": "Missing condition, timeframe, and CPCB standard"
+    },
+    {
+      "input": "Home compostable within 90 days as per IS/ISO 17088 (CPCB certificate: CPCB/WMC/2024/01)",
+      "expect": "pass",
+      "notes": "Fully qualified condition and CPCB certificate"
+    }
+  ]
+}

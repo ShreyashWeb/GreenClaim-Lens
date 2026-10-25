@@ -1,0 +1,63 @@
+{
+  "id": "GCL-001",
+  "title": "Unqualified broad environmental terms",
+  "status": "draft",
+  "severity": "medium",
+  "source": {
+    "document": "CCPA Guidelines for Prevention and Regulation of Greenwashing, 2024",
+    "clause": "<TODO: verify against official text>",
+    "url": "<TODO: verify against official text>",
+    "retrieved_on": "2024-10-25"
+  },
+  "detect": {
+    "type": "lexicon",
+    "terms": [
+      "eco-friendly",
+      "eco friendly",
+      "green",
+      "planet-friendly",
+      "planet friendly",
+      "environmentally friendly",
+      "sustainable",
+      "earth-friendly"
+    ],
+    "languages": ["en"],
+    "qualifier_terms": [
+      "recycled",
+      "post-consumer",
+      "biodegradable within",
+      "certified organic",
+      "fsc certified",
+      "gots certified"
+    ],
+    "substantiation_patterns": [
+      "certificate",
+      "certified by",
+      "standard",
+      "license",
+      "iso",
+      "bis",
+      "test report"
+    ]
+  },
+  "requires": ["qualifier", "substantiation_reference"],
+  "outcome_if_missing": "flag",
+  "explain": {
+    "en": "Generic broad terms such as 'eco-friendly' or 'green' require specific qualifying scope and accessible substantiation."
+  },
+  "remediation": {
+    "en": "Specify the exact environmental attribute (e.g. 'made with 40% post-consumer recycled plastic') and link a verifiable certificate or standard."
+  },
+  "tests": [
+    {
+      "input": "100% eco-friendly packaging",
+      "expect": "flag",
+      "notes": "Broad term without qualification"
+    },
+    {
+      "input": "Eco-friendly bottle made with 50% post-consumer recycled PET (certificate: ISO-14021)",
+      "expect": "pass",
+      "notes": "Qualified with recycled content and ISO standard reference"
+    }
+  ]
+}

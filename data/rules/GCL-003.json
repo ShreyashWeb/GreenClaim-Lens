@@ -1,0 +1,57 @@
+{
+  "id": "GCL-003",
+  "title": "Comparative environmental claim without verifiable baseline",
+  "status": "draft",
+  "severity": "high",
+  "source": {
+    "document": "CCPA Guidelines for Prevention and Regulation of Greenwashing, 2024",
+    "clause": "<TODO: verify against official text>",
+    "url": "<TODO: verify against official text>",
+    "retrieved_on": "2024-10-25"
+  },
+  "detect": {
+    "type": "lexicon",
+    "terms": [
+      "greener than before",
+      "more eco-friendly than",
+      "less plastic than before",
+      "cleaner than previous",
+      "greener than leading brand",
+      "more sustainable than standard"
+    ],
+    "languages": ["en"],
+    "qualifier_terms": [
+      "compared to 2022 baseline",
+      "vs 2023 formulation",
+      "measured against standard formula",
+      "baseline comparison"
+    ],
+    "substantiation_patterns": [
+      "audit report",
+      "lca report",
+      "baseline study",
+      "comparative study",
+      "certificate"
+    ]
+  },
+  "requires": ["qualifier", "substantiation_reference"],
+  "outcome_if_missing": "flag",
+  "explain": {
+    "en": "Comparative claims require an explicit, verifiable baseline and substantiated methodology."
+  },
+  "remediation": {
+    "en": "State the comparison baseline (year/product) and publish the comparative test report."
+  },
+  "tests": [
+    {
+      "input": "Now 50% greener than before!",
+      "expect": "flag",
+      "notes": "No baseline year or product specified"
+    },
+    {
+      "input": "Contains 30% less plastic than before (compared to 2022 baseline, audit report #2024-PL)",
+      "expect": "pass",
+      "notes": "Specific baseline and report cited"
+    }
+  ]
+}

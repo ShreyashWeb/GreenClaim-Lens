@@ -1,0 +1,49 @@
+{
+  "id": "GCL-005",
+  "title": "Carbon neutral claim relying on offsets without explicit disclosure",
+  "status": "draft",
+  "severity": "high",
+  "source": {
+    "document": "CCPA Guidelines for Prevention and Regulation of Greenwashing, 2024",
+    "clause": "<TODO: verify against official text>",
+    "url": "<TODO: verify against official text>",
+    "retrieved_on": "2024-10-25"
+  },
+  "detect": {
+    "type": "lexicon",
+    "terms": ["carbon neutral", "climate neutral", "carbon positive", "carbon negative"],
+    "languages": ["en"],
+    "qualifier_terms": [
+      "gross emissions reduced by",
+      "offsetting remaining emissions",
+      "verified carbon credits"
+    ],
+    "substantiation_patterns": [
+      "verra registry",
+      "gold standard",
+      "registry id",
+      "iso 14064",
+      "audit report"
+    ]
+  },
+  "requires": ["qualifier", "substantiation_reference"],
+  "outcome_if_missing": "flag",
+  "explain": {
+    "en": "Claims of carbon neutrality must distinguish between direct emissions reductions and carbon credits/offsets, providing accredited registry details."
+  },
+  "remediation": {
+    "en": "Disclose gross emissions reductions achieved before offsetting, and cite the offset standard and public registry ID."
+  },
+  "tests": [
+    {
+      "input": "This delivery is 100% carbon neutral",
+      "expect": "flag",
+      "notes": "Unsubstantiated neutrality claim"
+    },
+    {
+      "input": "Carbon neutral delivery: gross emissions reduced by 40% with remaining offsets under Gold Standard (registry id: GS-2024-99)",
+      "expect": "pass",
+      "notes": "Disclosed reductions and verified registry ID"
+    }
+  ]
+}

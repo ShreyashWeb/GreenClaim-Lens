@@ -1,0 +1,58 @@
+{
+  "id": "GCL-006",
+  "title": "Unsubstantiated eco-label or certification claim",
+  "status": "draft",
+  "severity": "high",
+  "source": {
+    "document": "CCPA Guidelines for Prevention and Regulation of Greenwashing, 2024",
+    "clause": "<TODO: verify against official text>",
+    "url": "<TODO: verify against official text>",
+    "retrieved_on": "2024-10-25"
+  },
+  "detect": {
+    "type": "lexicon",
+    "terms": [
+      "certified green",
+      "eco-certified",
+      "green approved",
+      "eco certified",
+      "green certified",
+      "verified eco-friendly"
+    ],
+    "languages": ["en"],
+    "qualifier_terms": [
+      "certified under ecomark",
+      "ecomark scheme",
+      "bis certified",
+      "fsc 100%",
+      "energy star"
+    ],
+    "substantiation_patterns": [
+      "license no",
+      "cert no",
+      "bis license",
+      "certification code",
+      "tested under standard"
+    ]
+  },
+  "requires": ["qualifier", "substantiation_reference"],
+  "outcome_if_missing": "flag",
+  "explain": {
+    "en": "Eco-labels and green certification claims require an authorized certification scheme and verifiable license/registration details."
+  },
+  "remediation": {
+    "en": "Specify the accredited certification scheme (e.g. BIS Ecomark) and display the verifiable license code."
+  },
+  "tests": [
+    {
+      "input": "Certified green packaging for home delivery",
+      "expect": "flag",
+      "notes": "Vague green seal claim without scheme details"
+    },
+    {
+      "input": "BIS certified packaging under Ecomark scheme (license no: CM/L-1234567)",
+      "expect": "pass",
+      "notes": "Official Ecomark scheme and license code"
+    }
+  ]
+}
