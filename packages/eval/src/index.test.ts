@@ -1,11 +1,25 @@
+import { DEFAULT_RULES } from '@greenclaim/core';
 import { describe, expect, it } from 'vitest';
-import { runEvaluationBaseline } from './index.js';
+import { evaluateDataset } from './index.js';
 
-describe('@greenclaim/eval skeleton', () => {
-  it('returns baseline evaluation results', async () => {
-    const result = await runEvaluationBaseline();
-    expect(result.status).toBe('ready');
-    expect(result.totalCases).toBe(0);
-    expect(result.macroF1).toBe(1.0);
+describe('@greenclaim/eval baseline benchmark', () => {
+  it('runs evaluation on baseline sample records', () => {
+    const records = [
+      {
+        id: 'gc-001',
+        text: '100% eco-friendly packaging',
+        expected_verdict: 'VAGUE' as const,
+      },
+      {
+        id: 'gc-002',
+        text: 'Zero emission vehicle in city',
+        expected_verdict: 'LIKELY_MISLEADING' as const,
+      },
+    ];
+
+    const report = evaluateDataset(records, DEFAULT_RULES);
+    expect(report.totalCases).toBe(2);
+    expect(report.falseAccusationRate).toBe(0);
+    expect(report.citationValidity).toBe(1.0);
   });
 });

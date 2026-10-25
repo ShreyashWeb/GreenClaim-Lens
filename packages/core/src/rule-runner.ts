@@ -17,6 +17,22 @@ const DEFAULT_SUBSTANTIATION_REGEX =
   /(\bcertificate\b|\bcertified by\b|\biso[-\s]?\d+\b|\bbis\b|\bstandard\b|\blicense\b|\breport\b|\btested by\b|\bverification\b|\bhttps?:\/\/)/i;
 
 /**
+ * Checks if a term matches in text respecting word/token boundaries.
+ */
+function matchesLexiconTerm(text: string, term: string): boolean {
+  const lowerText = text.toLowerCase();
+  const lowerTerm = term.toLowerCase();
+
+  if (/[\u0900-\u097F]/.test(term)) {
+    return lowerText.includes(lowerTerm);
+  }
+
+  const escaped = lowerTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(^|[^a-zA-Z0-9_-])${escaped}([^a-zA-Z0-9_-]|$)`, 'i');
+  return regex.test(text);
+}
+
+/**
  * Executes a list of deterministic rules against normalized claim text.
  * Pure function: no I/O, no network, no environment access.
  */
@@ -45,8 +61,7 @@ export function runRules(
 
     if (rule.detect.type === 'lexicon' && rule.detect.terms) {
       for (const term of rule.detect.terms) {
-        const lowerTerm = term.toLowerCase();
-        if (lower.includes(lowerTerm)) {
+        if (matchesLexiconTerm(normalized, term)) {
           matchedTerm = term;
           break;
         }

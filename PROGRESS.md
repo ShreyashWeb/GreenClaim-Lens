@@ -23,9 +23,12 @@ Phase 0 Foundations are complete: The Turborepo monorepo with pnpm workspaces is
 - [x] Task 1.3: Verdict Aggregation & Risk Scoring in `packages/core` (4-state verdicts, risk score 0-100) — Verified via 6 verdict unit tests enforcing 'does not appear to meet' wording, cite-or-abstain, and bounded risk scoring.
 - [x] Task 1.4: Rule definitions in `data/rules/` with tests & source clauses (logging unverified clauses to `NEEDS_HUMAN.md`) — Verified via 33 test cases across 8 rules in `packages/core/src/default-rules.test.ts` and logged 8 unverified clause entries in `NEEDS_HUMAN.md`.
 - [x] Task 1.5: Golden Dataset v0 in `data/golden/` (50+ labelled items across categories and verdicts) — Verified via 52 curated golden cases balanced across all 4 verdicts, checked by `packages/core/src/golden-schema.test.ts`.
-- [ ] Task 1.6: Evaluation harness in `packages/eval` (Macro-F1, per-class metrics, false-accusation rate)
-- [ ] Task 1.7: `pnpm eval` benchmark reporting baseline rules-only metrics
-- [ ] Task 1.8: Phase 1 exit criteria verification & summary
+- [x] Task 1.6: Evaluation harness in `packages/eval` (Macro-F1, per-class metrics, false-accusation rate) — Verified via 3 unit tests in `packages/eval` covering confusion matrix, per-class precision/recall, and false-accusation rate detection.
+- [x] Task 1.7: `pnpm eval` benchmark reporting baseline rules-only metrics — Verified via `pnpm eval` evaluating 52 golden cases with 97.0% Macro-F1, 98.1% accuracy, 0.0% false-accusation rate, and writing `docs/EVAL_RESULTS.md`.
+- [x] Task 1.8: Phase 1 exit criteria verification & summary — Verified all Phase 1 exit criteria met with 100% green tests and typecheck across monorepo.
+
+### Phase 1 Summary & Exit Criteria
+Phase 1 (Rule Engine and Evaluation) is complete: The pure rule engine in `@greenclaim/core` (types, boundary-aware lexicon/regex matcher, non-accusatory verdict aggregator, and risk scorer) operates deterministically with zero I/O. 8 foundational rules with embedded test cases are defined in `data/rules/` (unverified legal text items logged to `NEEDS_HUMAN.md`). The 52-case golden dataset v0 in `data/golden/` was benchmarked via `packages/eval`, achieving a 97.0% Macro-F1 score, 98.1% overall accuracy, 0.0% false-accusation rate, and 100% citation validity with results documented in `docs/EVAL_RESULTS.md`. All exit criteria met.
 
 ## Phase 2: Retrieval and LLM Gateway
 - [ ] Guidelines chunking and indexing in `packages/retrieval`
