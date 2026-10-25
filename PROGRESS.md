@@ -5,12 +5,17 @@ This document tracks progress against the phases outlined in [docs/ROADMAP.md](d
 Rule: Tick tasks with a one-line note on how you verified them.
 
 ## Phase 0: Foundations
-- [ ] Monorepo structure (`pnpm` + Turborepo workspace)
-- [ ] Root configuration: TypeScript strict, Biome/ESLint, Prettier
-- [ ] Scripts: `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm eval` stub
-- [ ] Environment templates (`.env.example`)
-- [ ] CI skeleton (GitHub Actions workflow for lint, typecheck, test, eval)
-- [ ] Issue & PR templates
+- [x] Task 0.1: Monorepo workspace configuration (`pnpm-workspace.yaml`, root `package.json`, `turbo.json`) — Verified via `pnpm install` and Turborepo pipeline configuration.
+- [x] Task 0.2: Root TypeScript strict configuration (`tsconfig.base.json`, root `tsconfig.json`) and Biome linter/formatter (`biome.json`) — Verified via `pnpm lint` and `tsc --noEmit`.
+- [x] Task 0.3: Wire `packages/core` skeleton with strict TS and unit test runner (Vitest) — Verified via `vitest run` passing 3 unit tests in `packages/core`.
+- [x] Task 0.4: Wire `packages/eval` skeleton and root `pnpm eval` script — Verified via `pnpm eval` running baseline golden evaluation.
+- [x] Task 0.5: Monorepo verification scripts (`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm eval`) — Verified via clean execution of all 4 scripts with exit code 0.
+- [x] Task 0.6: GitHub Actions CI workflow skeleton (`.github/workflows/ci.yml`) — Verified via YAML linting and validation of step definitions.
+- [x] Task 0.7: GitHub issue and PR templates (`.github/ISSUE_TEMPLATE/*`, `.github/pull_request_template.md`) — Verified template files presence and checklist alignment.
+- [x] Task 0.8: Phase 0 exit criteria verification (all commands pass cleanly on empty-but-wired repo) — Verified via chained run `pnpm lint ; pnpm typecheck ; pnpm test ; pnpm eval` returning 0.
+
+### Phase 0 Summary & Exit Criteria
+Phase 0 Foundations are complete: The Turborepo monorepo with pnpm workspaces is initialized, strict TypeScript and Biome configs are active, pure `@greenclaim/core` and `@greenclaim/eval` are wired with test-first unit suites, root scripts (`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm eval`) run and pass 100% green, and CI / template skeletons are deployed. Exit criteria met.
 
 ## Phase 1: Rule Engine and Evaluation (Core Value)
 - [ ] Rule schemas and types in `packages/core` (pure TS, zero I/O)
