@@ -5,5 +5,13 @@
     "noEmit": true
   },
   "include": [],
-  "references": [{ "path": "./packages/core" }, { "path": "./packages/eval" }]
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/llm-gateway" },
+    { "path": "./packages/retrieval" },
+    { "path": "./packages/sdk" },
+    { "path": "./packages/eval" },
+    { "path": "./apps/web" },
+    { "path": "./apps/api" }
+  ]
 }

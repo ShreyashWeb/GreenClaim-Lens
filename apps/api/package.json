@@ -1,0 +1,17 @@
+{
+  "name": "@greenclaim/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --config ../../vitest.config.ts",
+    "lint": "biome check ."
+  },
+  "dependencies": {
+    "@greenclaim/core": "workspace:*",
+    "@greenclaim/llm-gateway": "workspace:*",
+    "@greenclaim/retrieval": "workspace:*"
+  }
+}

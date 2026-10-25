@@ -182,9 +182,48 @@ importers:
         specifier: ^5.0.5
         version: 5.0.5(@types/node@26.6.5)(vite@8.3.5(@types/node@26.6.5))
 
+  apps/api:
+    dependencies:
+      '@greenclaim/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@greenclaim/llm-gateway':
+        specifier: workspace:*
+        version: link:../../packages/llm-gateway
+      '@greenclaim/retrieval':
+        specifier: workspace:*
+        version: link:../../packages/retrieval
+
+  apps/web:
+    dependencies:
+      '@greenclaim/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@greenclaim/sdk':
+        specifier: workspace:*
+        version: link:../../packages/sdk
+
   packages/core: {}
 
   packages/eval:
+    dependencies:
+      '@greenclaim/core':
+        specifier: workspace:*
+        version: link:../core
+
+  packages/llm-gateway:
+    dependencies:
+      '@greenclaim/core':
+        specifier: workspace:*
+        version: link:../core
+
+  packages/retrieval:
+    dependencies:
+      '@greenclaim/core':
+        specifier: workspace:*
+        version: link:../core
+
+  packages/sdk:
     dependencies:
       '@greenclaim/core':
         specifier: workspace:*
