@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GreenClaim Lens Inspector</title>
+    <style>
+      :root {
+        --bg-main: #061511;
+        --bg-card: #0d2820;
+        --text-main: #ecfdf5;
+        --text-muted: #6ee7b7;
+        --accent-emerald: #10b981;
+        --accent-amber: #f59e0b;
+        --accent-rose: #f43f5e;
+        --border-subtle: rgba(16, 185, 129, 0.2);
+      }
+      body {
+        margin: 0;
+        width: 320px;
+        min-height: 380px;
+        background: var(--bg-main);
+        color: var(--text-main);
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 13px;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        padding: 12px 16px;
+        background: var(--bg-card);
+        border-bottom: 1px solid var(--border-subtle);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--text-main);
+      }
+      .version-tag {
+        font-size: 10px;
+        padding: 2px 6px;
+        background: rgba(16, 185, 129, 0.2);
+        color: var(--accent-emerald);
+        border-radius: 10px;
+      }
+      main {
+        padding: 14px 16px;
+        flex: 1;
+        overflow-y: auto;
+      }
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .stat-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        padding: 8px;
+        text-align: center;
+      }
+      .stat-num {
+        font-size: 18px;
+        font-weight: 800;
+      }
+      .stat-label {
+        font-size: 10px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+      .stat-card.misleading .stat-num { color: var(--accent-rose); }
+      .stat-card.vague .stat-num { color: var(--accent-amber); }
+      .stat-card.credible .stat-num { color: var(--accent-emerald); }
+
+      .claims-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .claim-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 6px;
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+      .claim-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4px;
+        font-size: 10px;
+        font-weight: 700;
+      }
+      .claim-text {
+        font-style: italic;
+        color: #d1fae5;
+        margin-bottom: 4px;
+      }
+      .claim-exp {
+        font-size: 11px;
+        color: #a7f3d0;
+      }
+      .empty-state {
+        text-align: center;
+        padding: 24px 12px;
+        color: var(--text-muted);
+      }
+      footer {
+        padding: 10px 16px;
+        background: var(--bg-card);
+        border-top: 1px solid var(--border-subtle);
+        text-align: center;
+        font-size: 11px;
+      }
+      footer a {
+        color: var(--accent-emerald);
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <span>🌿</span>
+        <span>GreenClaim Lens</span>
+      </div>
+      <span class="version-tag">MV3 Edge</span>
+    </header>
+
+    <main>
+      <div class="stat-grid">
+        <div class="stat-card misleading">
+          <div class="stat-num" id="stat-misleading">0</div>
+          <div class="stat-label">Misleading</div>
+        </div>
+        <div class="stat-card vague">
+          <div class="stat-num" id="stat-vague">0</div>
+          <div class="stat-label">Vague</div>
+        </div>
+        <div class="stat-card credible">
+          <div class="stat-num" id="stat-credible">0</div>
+          <div class="stat-label">Credible</div>
+        </div>
+      </div>
+
+      <div id="claims-container" class="claims-list">
+        <div class="empty-state" id="empty-state">
+          Scanning active page for environmental claims...
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <a href="https://greenclaimlens.org" target="_blank" rel="noreferrer">Open Full Web App & Grievance Drafter →</a>
+    </footer>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

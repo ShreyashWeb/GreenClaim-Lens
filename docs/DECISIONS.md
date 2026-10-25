@@ -38,3 +38,8 @@ This document records architectural, design, and implementation decisions that e
 ## ADR-009: Interactive Risk Visualizer, 2D Fallback, and Performance Budget
 - **Context:** High-fidelity data visualizations provide clarity into environmental compliance risks, but heavy 3D bundles can degrade performance on low-end mobile hardware or violate WCAG accessibility guidelines for users with vestibular disorders.
 - **Decision:** Implement a lightweight 3D rotating compliance wireframe sphere with Three.js-style mathematics and canvas rendering. Couple it with a performance budget validator that detects device concurrency, WebGL support, and `prefers-reduced-motion` settings to automatically fall back to an accessible 2D SVG radial gauge with instant rendering and zero motion artifacts.
+
+## ADR-010: Edge API Architecture, Typed Client SDK, and Manifest V3 Extension
+- **Context:** Third-party developers, researchers, and consumers browsing e-commerce platforms need direct programmatic and in-browser access to claim verification without manually copy-pasting into the web app.
+- **Decision:** Implement an Edge-ready Hono API (`apps/api`) with OpenAPI 3.1 specifications, interactive Swagger/Scalar documentation, API key authentication, and sliding-window rate limiting. Provide a standalone `@greenclaim/sdk` client with custom error taxonomy and typed methods. Build a Manifest V3 browser extension (`apps/extension`) with content scripts that inspect product pages, apply non-accusatory highlights and badges citing CCPA 2024 guidelines, and surface aggregate statistics in a popup.
+

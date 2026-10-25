@@ -1,0 +1,71 @@
+/**
+ * GreenClaim Lens - Extension In-Page Styles
+ */
+
+.gcl-inspected {
+  position: relative;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border-radius: 4px;
+  padding: 1px 3px;
+  cursor: help;
+}
+
+.gcl-inspected[data-gcl-verdict="LIKELY_MISLEADING"] {
+  background-color: rgba(244, 63, 94, 0.15);
+  border-bottom: 2px dashed #f43f5e;
+}
+
+.gcl-inspected[data-gcl-verdict="VAGUE"] {
+  background-color: rgba(245, 158, 11, 0.15);
+  border-bottom: 2px dashed #f59e0b;
+}
+
+.gcl-inspected[data-gcl-verdict="CREDIBLE"] {
+  background-color: rgba(16, 185, 129, 0.15);
+  border-bottom: 2px solid #10b981;
+}
+
+.gcl-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 2px 6px;
+  border-radius: 12px;
+  vertical-align: middle;
+  text-decoration: none;
+}
+
+.gcl-badge-misleading {
+  background: #f43f5e;
+  color: #ffffff;
+}
+
+.gcl-badge-vague {
+  background: #f59e0b;
+  color: #111827;
+}
+
+.gcl-badge-credible {
+  background: #10b981;
+  color: #061511;
+}
+
+.gcl-tooltip-card {
+  position: absolute;
+  z-index: 999999;
+  width: 280px;
+  padding: 12px;
+  background: #091e17;
+  color: #ecfdf5;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.4;
+  pointer-events: none;
+}
