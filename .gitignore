@@ -9,6 +9,7 @@ out/
 build/
 .turbo/
 .wrangler/
+*.tsbuildinfo
 
 # Environment variables & secrets (CRITICAL: never commit secrets)
 .env
