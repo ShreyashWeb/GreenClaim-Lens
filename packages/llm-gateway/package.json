@@ -18,6 +18,7 @@
     "lint": "biome check ."
   },
   "dependencies": {
-    "@greenclaim/core": "workspace:*"
+    "@greenclaim/core": "workspace:*",
+    "zod": "^4.6.7"
   }
 }

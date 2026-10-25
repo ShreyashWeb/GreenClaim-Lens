@@ -31,12 +31,17 @@ Phase 0 Foundations are complete: The Turborepo monorepo with pnpm workspaces is
 Phase 1 (Rule Engine and Evaluation) is complete: The pure rule engine in `@greenclaim/core` (types, boundary-aware lexicon/regex matcher, non-accusatory verdict aggregator, and risk scorer) operates deterministically with zero I/O. 8 foundational rules with embedded test cases are defined in `data/rules/` (unverified legal text items logged to `NEEDS_HUMAN.md`). The 52-case golden dataset v0 in `data/golden/` was benchmarked via `packages/eval`, achieving a 97.0% Macro-F1 score, 98.1% overall accuracy, 0.0% false-accusation rate, and 100% citation validity with results documented in `docs/EVAL_RESULTS.md`. All exit criteria met.
 
 ## Phase 2: Retrieval and LLM Gateway
-- [ ] Guidelines chunking and indexing in `packages/retrieval`
-- [ ] Hybrid search (BM25 + vector ranking)
-- [ ] Provider-agnostic LLM gateway in `packages/llm-gateway`
-- [ ] Gateway failover, circuit breaker, caching
-- [ ] Citation validation & abstention logic
-- [ ] Red-team prompt injection tests
+- [x] Task 2.1: Guidelines chunker with stable chunk IDs & metadata in `packages/retrieval` — Verified via 3 unit tests in `chunker.test.ts` ensuring deterministic `ch_<doc>_<clause>` IDs, token extraction, and official corpus chunking.
+- [x] Task 2.2: Hybrid retrieval engine (keyword BM25 + vector search + Reciprocal Rank Fusion) in `packages/retrieval` — Verified via 3 unit tests in `hybrid-retriever.test.ts` testing BM25 token weighting, cosine similarity vector search, and RRF rank fusion.
+- [x] Task 2.3: Provider-agnostic LLM Gateway interface & provider adapters (mock, Gemini, Groq) in `packages/llm-gateway` — Verified via `gateway.test.ts` testing `MockProviderAdapter` and adapter interfaces conforming to `LLMProviderAdapter`.
+- [x] Task 2.4: Circuit breaker, failover order, and SHA-256 prompt response caching in `packages/llm-gateway` — Verified via `gateway.test.ts` confirming SHA-256 prompt response caching and circuit breaker tripping after consecutive failure threshold.
+- [x] Task 2.5: Server-side citation validation & strict abstention logic (`INSUFFICIENT_EVIDENCE`) — Verified via `validateAndEnforceCitations` test suite in `gateway.test.ts` forcing `unsure` outcome and citation strip on hallucinated or missing chunk references.
+- [x] Task 2.6: Red-team prompt-injection tests (adversarial claim injections, oversized payloads) — Verified via 4 security tests in `red-team.test.ts` protecting against zero-width unicode bypasses, prompt injection instructions, and oversized payload DOS.
+- [x] Task 2.7: Graceful degradation testing (killing providers yields rule-only partial response) — Verified via dedicated test in `gateway.test.ts` proving zero unhandled exceptions and graceful fallback to `unsure` when all upstream providers fail.
+- [x] Task 2.8: Phase 2 exit criteria verification & summary (100% citation validity, graceful failover verified) — Verified full monorepo pipeline: `pnpm lint`, `pnpm typecheck`, `pnpm test` (82 tests passing), and `pnpm eval` (100% citation validity, 0.0% false accusations).
+
+### Phase 2 Summary & Exit Criteria
+Phase 2 (Retrieval and LLM Gateway) is complete: The guidelines chunker in `@greenclaim/retrieval` generates deterministic stable chunk identifiers with BM25 tokenization. The hybrid retrieval engine merges keyword and dense vector search via Reciprocal Rank Fusion (RRF). The provider-agnostic LLM Gateway in `@greenclaim/llm-gateway` supports mock, Gemini, and Groq providers with priority failover, SHA-256 prompt response caching, and per-provider circuit breakers. Crucially, server-side citation validation enforces strict citation matching against retrieved chunks, forcing abstention (`unsure`) upon hallucinated or missing citations. Red-team tests protect against prompt injections, hidden Unicode characters, and oversized payloads. Graceful degradation when all providers fail is verified. All exit criteria met.
 
 ## Phase 3: Web App MVP
 - [ ] Next.js app in `apps/web` with App Router, Tailwind, TypeScript strict

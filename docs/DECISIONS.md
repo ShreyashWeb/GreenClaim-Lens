@@ -14,3 +14,16 @@ This document records architectural, design, and implementation decisions that e
 ## ADR-003: Pure Core Boundary
 - **Context:** `packages/core` must remain 100% deterministic and free of network, storage, or environment access.
 - **Decision:** Any legal claim parsing, rule matching, aggregation, and risk scoring logic will reside strictly in `packages/core` with zero platform dependencies. Any external data (retrieved clauses, LLM judgments) must be passed as typed arguments to pure functions.
+
+## ADR-004: Boundary-Aware Lexicon Term Matching
+- **Context:** Substring matching (`includes()`) causes false-positive collisions (e.g. `"100% eco"` falsely triggering inside `"100% eco-friendly packaging"`).
+- **Decision:** Implement token-boundary regex matching `(^|[^a-zA-Z0-9_-])...([^a-zA-Z0-9_-]|$)` for Latin alphabets while preserving Unicode script compatibility for Devanagari (Hindi) terms.
+
+## ADR-005: Server-Side Citation Enforcement & Abstention
+- **Context:** LLMs can hallucinate regulatory clauses or return flags without evidence citations.
+- **Decision:** Validate all LLM output citations against the retrieved chunk IDs before accepting a model output; any mismatch or missing citation on a flag forces the outcome to `unsure` and strips citations, ensuring 100% citation validity and strict adherence to the cite-or-abstain principle.
+
+## ADR-006: LLM Gateway Resilience & Failover
+- **Context:** Free-tier providers (Gemini, Groq) may encounter rate limits or temporary downtime.
+- **Decision:** Implement an in-memory SHA-256 prompt response cache, consecutive failure tracking with circuit breakers, and an ordered priority failover. If all providers fail, the gateway gracefully returns an `unsure` judgment without throwing exceptions.
+

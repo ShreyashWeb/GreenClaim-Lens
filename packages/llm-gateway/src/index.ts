@@ -1,20 +1,9 @@
 /**
  * GreenClaim Lens - LLM Gateway
- * Provider abstraction, circuit breaker, failover, response caching.
+ * Provider abstraction, circuit breaker, failover, response caching, citation enforcement, sanitization.
  */
 
-export interface LLMGatewayConfig {
-  providers: string[];
-}
-
-export class LLMGateway {
-  private providers: string[];
-
-  constructor(config: LLMGatewayConfig) {
-    this.providers = [...config.providers];
-  }
-
-  getActiveProviders(): string[] {
-    return [...this.providers];
-  }
-}
+export * from './types.js';
+export * from './providers.js';
+export * from './gateway.js';
+export * from './sanitize.js';
