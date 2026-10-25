@@ -16,5 +16,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run --config ../../vitest.config.ts",
     "lint": "biome check ."
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
   }
 }

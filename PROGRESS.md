@@ -18,13 +18,14 @@ Rule: Tick tasks with a one-line note on how you verified them.
 Phase 0 Foundations are complete: The Turborepo monorepo with pnpm workspaces is initialized, strict TypeScript and Biome configs are active, pure `@greenclaim/core` and `@greenclaim/eval` are wired with test-first unit suites, root scripts (`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm eval`) run and pass 100% green, and CI / template skeletons are deployed. Exit criteria met.
 
 ## Phase 1: Rule Engine and Evaluation (Core Value)
-- [ ] Rule schemas and types in `packages/core` (pure TS, zero I/O)
-- [ ] Rule definitions in `data/rules/` derived from official sources or marked with `<TODO: verify against official text>`
-- [ ] Rule execution engine & aggregation logic
-- [ ] Risk scoring algorithm
-- [ ] Golden dataset loader & runner in `packages/eval`
-- [ ] Golden dataset initial cases in `data/golden/`
-- [ ] `pnpm eval` benchmark reporting baseline metrics
+- [x] Task 1.1: Core Types & Schemas in `packages/core` (Claim, Rule, RuleHit, Verdict, RiskScore) — Verified via 6 Zod schema test suites and full typecheck across workspace.
+- [ ] Task 1.2: Deterministic Rule Runner in `packages/core` (lexicon, regex, qualifiers, evidence spans)
+- [ ] Task 1.3: Verdict Aggregation & Risk Scoring in `packages/core` (4-state verdicts, risk score 0-100)
+- [ ] Task 1.4: Rule definitions in `data/rules/` with tests & source clauses (logging unverified clauses to `NEEDS_HUMAN.md`)
+- [ ] Task 1.5: Golden Dataset v0 in `data/golden/` (50+ labelled items across categories and verdicts)
+- [ ] Task 1.6: Evaluation harness in `packages/eval` (Macro-F1, per-class metrics, false-accusation rate)
+- [ ] Task 1.7: `pnpm eval` benchmark reporting baseline rules-only metrics
+- [ ] Task 1.8: Phase 1 exit criteria verification & summary
 
 ## Phase 2: Retrieval and LLM Gateway
 - [ ] Guidelines chunking and indexing in `packages/retrieval`
