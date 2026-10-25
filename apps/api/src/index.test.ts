@@ -161,5 +161,15 @@ describe('@greenclaim/api', () => {
       });
       expect(goodKey.status).toBe(200);
     });
+
+    it('enforces secure response headers across API routes', async () => {
+      const res = await app.request('/v1/health');
+      expect(res.headers.get('X-Content-Type-Options')).toBe('nosniff');
+      expect(res.headers.get('X-Frame-Options')).toBe('DENY');
+      expect(res.headers.get('Referrer-Policy')).toBe('strict-origin-when-cross-origin');
+      expect(res.headers.get('Strict-Transport-Security')).toBe(
+        'max-age=31536000; includeSubDomains'
+      );
+    });
   });
 });

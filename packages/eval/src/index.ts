@@ -220,3 +220,5 @@ export function generateMarkdownReport(report: EvaluationReport, version = '0.1.
 
   return lines.join('\n');
 }
+
+export * from './gate.js';

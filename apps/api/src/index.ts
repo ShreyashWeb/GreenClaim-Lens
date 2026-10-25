@@ -34,6 +34,15 @@ export function getApiStatus(): ApiStatus {
 export function createApp(_bindings?: ApiBindings) {
   const app = new Hono<{ Bindings: ApiBindings }>();
 
+  // Security headers
+  app.use('*', async (c, next) => {
+    c.header('X-Content-Type-Options', 'nosniff');
+    c.header('X-Frame-Options', 'DENY');
+    c.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+    c.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    return await next();
+  });
+
   // Global CORS
   app.use(
     '*',

@@ -16,7 +16,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run --config ../../vitest.config.ts",
     "lint": "biome check .",
-    "eval": "tsc --build && node ./dist/runner.js"
+    "eval": "tsc --build && node ./dist/runner.js",
+    "eval:gate": "tsc --build && node ./dist/gate.js"
   },
   "dependencies": {
     "@greenclaim/core": "workspace:*"

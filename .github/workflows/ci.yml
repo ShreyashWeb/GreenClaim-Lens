@@ -42,3 +42,6 @@ jobs:
 
       - name: Evaluation baseline gate
         run: pnpm eval
+
+      - name: Evaluation quality & safety hard gate
+        run: pnpm eval:gate
